@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lightbox</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+
+	<style type="text/css">
+	body {
+		font-family: Vedrana, sans-serif;
+		letter-spacing: 1px;
+		margin: 0;
+	}
+
+	img{
+		box-sizing: border-box;
+		width: 800px;
+		height: 400px;
+		max-width: 100%;
+		padding: 10px;
+
+	}
+
+	.row{
+
+		height: 400px;
+	}
+	.row > .column {
+		padding: 0 8px;
+
+	}
+
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	/* Create equal columns that floats next to each other */
+	.column {
+		float: left;
+		width: 20%;
+	}
+
+
+	/* The Modal (background) */
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		background-color: black;
+	}
+
+	/* Modal Content */
+	.modal-content {
+		position: relative;
+		background-color: black;
+		margin: auto;
+		padding: 20px;
+		width: 600px;
+		max-width: 1200px;
+		margin-top: 20px;
+	}
+
+	/* The Close Button */
+	.close {
+		color: white;
+		position: absolute;
+		top: 10px;
+		right: 25px;
+		font-size: 35px;
+		font-weight: bold;
+	}
+	/* Lightening the pictures under the main one with hover*/
+	.close:hover,
+	.close:focus {
+		color: #999;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	/* Hide the slides by default */
+	.mySlides {
+		display: none;
+	}
+
+	/* Next & previous buttons */
+	.prev,
+	.next {
+		cursor: pointer;
+		position: absolute;
+		top: 50%;
+		width: auto;
+		padding: 16px;
+		margin-top: -50px;
+		color: white;
+		font-weight: bold;
+		font-size: 30px;
+		transition: 0.6s ease;
+		border-radius: 0 3px 3px 0;
+		user-select: none;
+		-webkit-user-select: none;
+	}
+
+	/* Position the "next button" to the right */
+	.next {
+		right: 0;
+		border-radius: 3px 0 0 3px;
+		margin-right: 25px;
+	}
+
+	/* On hover, add a black background color with a little bit see-through */
+	.prev:hover,
+	.next:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+
+	/* Number text (1/8 etc) */
+	.numbertext {
+		color: #f2f2f2;
+		font-size: 12px;
+		padding: 8px 12px;
+		position: absolute;
+		top: 0;
+	}
+
+	/* Caption text */
+	.caption-container {
+		text-align: center;
+		background-color: black;
+		padding: 2px 16px;
+		color: white;
+	}
+	/* The pictures under the Modal Gallery*/
+	img.demo {
+		opacity: 0.6;
+		height: 200px;
+		width: 400px;
+	}
+	/* How much to be visible on hover the pictures under the modal - непрозрачност*/
+	.active,
+	.demo:hover {
+		opacity: 1;
+	}
+
+	img.hover-shadow {
+		transition: 0.3s;
+	}
+
+	.hover-shadow:hover {
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+</style>
+</head>
+<body>
+<!--Here in this div element are contained the images on which after the action onClick 
+	they will be visualized in modal (set) gallery -->
+	<!-- Images used to open the in the lightbox -->
+	<div class="row">
+		<div class="column">
+			<img src="images/img1.jpg" onclick="openModal();currentSlide(1)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img2.jpg" onclick="openModal();currentSlide(2)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img3.jpg" onclick="openModal();currentSlide(3)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img4.jpg" onclick="openModal();currentSlide(4)" class="hover-shadow">
+		</div> 
+		<div class="column">
+			<img src="images/img5.jpg" onclick="openModal();currentSlide(5)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img6.jpg" onclick="openModal();currentSlide(6)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img7.jpg" onclick="openModal();currentSlide(7)" class="hover-shadow">
+		</div>
+		<div class="column">
+			<img src="images/img8.jpg" onclick="openModal();currentSlide(8)" class="hover-shadow">
+		</div>
+	</div>
+
+	<!-- The Modal/Lightbox (the one with the black background) gallery-->
+	<!--Taking users attention only to one specific photo (the one it's clicked on)-->
+	<div id="myModal" class="modal">
+		<span class="close cursor" onclick="closeModal()">&times;</span>
+		<div class="modal-content">
+
+			<div class="mySlides">
+				<div class="numbertext">1 / 8</div>
+				<img src="images/img1.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">2 / 8</div>
+				<img src="images/img2.jpg" style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">3 / 8</div>
+				<img src="images/img3.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">4 / 8</div>
+				<img src="images/img4.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">5 / 8</div>
+				<img src="images/img5.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">6 / 8</div>
+				<img src="images/img6.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">7 / 8</div>
+				<img src="images/img7.jpg"  style="width:100%">
+			</div>
+			<div class="mySlides">
+				<div class="numbertext">8 / 8</div>
+				<img src="images/img8.jpg"  style="width:100%">
+			</div>
+
+			<!--The way all images are grouped is by using the <div> class="mySlides", so actually if one of the image doesn't actually have that class the image will be still vsible, but won't be part of the group and won't be presented in the main modal with it's number of appearing  -->
+				<!-- Snap shot of example in the documentation-->
+
+			<!-- Next/previous controls -->
+			<a class="prev" onclick="plus_minusSlides(-1)">&#10094;</a> 
+			<!-- when previous arrow (&#10094; - UNICODE) is clicked to remove 1 from the slideIndex;  --> 
+			<a class="next" onclick="plus_minusSlides(1)">&#10095;</a>
+			<!-- when next arrow (&#10095; - UNICODE) is clicked to add 1 from the slideIndex;  --> 
+
+
+			<!-- Caption text -->
+			<div class="caption-container">
+				<p id="caption"></p>
+			</div>
+
+			<!-- Images under the modal or also called thumbnails on the bottom-->
+
+			<div class="column">
+				<img class="demo" src="images/img1.jpg" onclick="currentSlide(1)" alt="Pull Up">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img2.jpg" onclick="currentSlide(2)" alt="Sundown">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img3.jpg" onclick="currentSlide(3)" alt="View">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img4.jpg" onclick="currentSlide(4)" alt="Jump">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img5.jpg" onclick="currentSlide(5)" alt="Community">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img6.jpg" onclick="currentSlide(6)" alt="Dame Du Lac">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img7.jpg" onclick="currentSlide(7)" alt="Kid jumping">
+			</div>
+			<div class="column">
+				<img class="demo" src="images/img8.jpg" onclick="currentSlide(8)" alt="Team fun">
+			</div>
+		</div>
+	</div>
+
+<!--So for example if you have multiple groups of lightboxes (kids, camp, events, trainers and etc.)
+ and we don't want it included in the same set on this web page then
+we use the group name is for. We have to match the name of the lightbox group with the lightbox we want in this set. 
+And when we match their names that's how they link together in a group. --> 
+	<script type="text/javascript">
+
+// Open the Modal and visualize it/display it
+function openModal() {
+	document.getElementById('myModal').style.display = "block";
+}
+
+// Close the Modal
+function closeModal() {
+	document.getElementById('myModal').style.display = "none";
+}
+
+//variable for knowing which is the current slide
+//where later slideIndex will be recognised as n
+var slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plus_minusSlides(n) {
+	showSlides(slideIndex = slideIndex + n);
+}
+
+// Thumbnail image controls (1/8)
+function currentSlide(n) {
+	showSlides(slideIndex = n);
+}
+
+function showSlides(n) 	{
+	//creating variables that will contain references to the html elements
+	var i;
+	var slides = document.getElementsByClassName("mySlides"); //the pictures visualized in the Modal with bigger width (100%)
+	var dots = document.getElementsByClassName("demo"); //pictures under the main picture that was openned in the modal
+	var captionText = document.getElementById("caption"); //it takes the alt="" information from the pictures having class="demo"
+
+//so until n (the currentSlide because of the current amount of pictures (the array) in this example)
+// is bigger than the slides.length property slideIndex will be 1, so they can skipe back to the 1st one from the right arrow 
+	if (n > slides.length) {
+		slideIndex = 1;
+	}
+	//and when 1 is bigger than n then the slideIndex will be 8 again and will retyrn to the last picture of the gallery in this case 8 so skipping to be possible from left to right
+	if (n < 1) {
+		slideIndex = slides.length;
+	}
+
+	for (i = 0; i < slides.length; i++) {
+		slides[i].style.display = "none"; //for each slides that is under the "spotlight" to be displayed with style="none"
+
+}
+
+	slides[slideIndex-1].style.display = "block"; // and the main one to be displayed as block only
+	
+	captionText.innerHTML = dots[slideIndex-1].alt; //for each picture in the modal the alt="" value to be taken and given to the paragraph
+}
+</script>
+</body>
+</html>
